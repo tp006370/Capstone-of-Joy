@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,19 +8,27 @@ using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotTest
 {
-    class Program
+   public class Program
     {
 
         private static string directLineSectret = "q7RPfg38hkE.cwA.pns.oxVS_JH5i-Kh9AWKooPsUtLh8q6fKxi-QHDZx2Tk6xU";
         private static string botId = "TheVirtualAdvisor";
         private static string fromUser = "DirectLineClientUser";
 
+        private static ConcurrentQueue<string> messagesToBot = new ConcurrentQueue<string>();
+        private static ConcurrentQueue<Activity> messagesFromBot = new ConcurrentQueue<Activity>();
+
 
         static void Main(string[] args)
         {
+           
             StartBotConversation().Wait();
 
         }
+
+
+
+
 
         private static async Task StartBotConversation()
         {
@@ -33,7 +42,7 @@ namespace BotTest
 
 
 
-            //This is a change
+           //This is a change
             Activity NewMessage1 = new Activity
             {
                 From = new ChannelAccount(fromUser),
@@ -42,7 +51,7 @@ namespace BotTest
             };
 
             await client.Conversations.PostActivityAsync(conversation.ConversationId, NewMessage1);
-
+           
 
             while (true)
             {
@@ -52,14 +61,17 @@ namespace BotTest
                 {
                     break;
                 }
-                else
+                if (!messagesToBot.IsEmpty)
                 {
-                    if (input.Length > 0)
+                   
+                    string message;
+                    if (messagesToBot.TryDequeue(out message))
                     {
+
                         Activity userMessage = new Activity
                         {
                             From = new ChannelAccount(fromUser),
-                            Text = input,
+                            Text = message,
                             Type = ActivityTypes.Message
                         };
 
@@ -84,22 +96,51 @@ namespace BotTest
 
                 foreach (Activity activity in activities)
                 {
-                    Console.WriteLine(activity.Text);
+                    messagesFromBot.Enqueue(activity);
 
-
-                    if (activity.Text.Contains("Hello"))
-                    {
-                        Console.Write("Test Pass \n");
-                    }
-                
-
-                    Console.Write("Command> ");
                 }
 
                 await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
             }
         }
 
-      
+      public static void initBotConversation()
+        {
+            Console.WriteLine("Starting Thread");
+            StartBotConversation().Wait();
+          
+
+        }
+
+
+        public static void setBotMessage(string message)
+        {
+            messagesToBot.Enqueue(message);
+                        
+        }
+
+        public static Microsoft.Bot.Connector.DirectLine.Activity getBotMessage()
+        {
+            Activity tempActivity = new Activity();
+
+            
+            if (!messagesFromBot.TryDequeue(out tempActivity))
+            {
+                Activity ErrorActivity = new Activity
+                {
+                    From = new ChannelAccount(fromUser),
+                    Text = "ERROR, No Message in Queue",
+                    Type = ActivityTypes.Message
+                };
+
+                return ErrorActivity;
+              //  tempActivity.Text = "ERROR, No Message in Queue";
+            }
+
+            return tempActivity;
+        }
+
+
+
     }
 }
