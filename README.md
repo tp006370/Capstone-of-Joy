@@ -1,2 +1,2 @@
 # Capstone-of-Joy
-SWENG Group 5 Repository
+SWENG 500 Group 5 Repository
