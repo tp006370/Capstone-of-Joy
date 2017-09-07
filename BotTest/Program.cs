@@ -10,7 +10,7 @@ namespace BotTest
 {
    public class Program
     {
-
+        //Test
         private static string directLineSectret = "q7RPfg38hkE.cwA.pns.oxVS_JH5i-Kh9AWKooPsUtLh8q6fKxi-QHDZx2Tk6xU";
         private static string botId = "TheVirtualAdvisor";
         private static string fromUser = "DirectLineClientUser";
@@ -43,24 +43,24 @@ namespace BotTest
 
 
            //This is a change
-            Activity NewMessage1 = new Activity
+  /*          Activity NewMessage1 = new Activity
             {
                 From = new ChannelAccount(fromUser),
                 Text = "Hello",
                 Type = ActivityTypes.Message
-            };
+            }; */
 
-            await client.Conversations.PostActivityAsync(conversation.ConversationId, NewMessage1);
+   //         await client.Conversations.PostActivityAsync(conversation.ConversationId, NewMessage1);
            
 
             while (true)
             {
-                string input = Console.ReadLine().Trim();
+ /*               string input = Console.ReadLine().Trim();
 
                 if (input.ToLower() == "exit")
                 {
                     break;
-                }
+                }*/
                 if (!messagesToBot.IsEmpty)
                 {
                    
