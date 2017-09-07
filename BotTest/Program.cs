@@ -10,7 +10,7 @@ namespace BotTest
 {
    public class Program
     {
-
+        //Test
         private static string directLineSectret = "q7RPfg38hkE.cwA.pns.oxVS_JH5i-Kh9AWKooPsUtLh8q6fKxi-QHDZx2Tk6xU";
         private static string botId = "TheVirtualAdvisor";
         private static string fromUser = "DirectLineClientUser";
