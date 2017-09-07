@@ -38,20 +38,24 @@ namespace BotTest
 
             new System.Threading.Thread(async () => await ReadBotMessagesAsync(client, conversation.ConversationId)).Start();
 
-            Console.Write("Command> ");
+            //        Console.Write("Command> ");
 
-
-
-           //This is a change
-  /*          Activity NewMessage1 = new Activity
+            Activity userMessage = new Activity
             {
                 From = new ChannelAccount(fromUser),
-                Text = "Hello",
                 Type = ActivityTypes.Message
-            }; */
+            };
 
-   //         await client.Conversations.PostActivityAsync(conversation.ConversationId, NewMessage1);
-           
+            //This is a change
+            /*          Activity NewMessage1 = new Activity
+                      {
+                          From = new ChannelAccount(fromUser),
+                          Text = "Hello",
+                          Type = ActivityTypes.Message
+                      }; */
+
+            //         await client.Conversations.PostActivityAsync(conversation.ConversationId, NewMessage1);
+
 
             while (true)
             {
@@ -67,13 +71,8 @@ namespace BotTest
                     string message;
                     if (messagesToBot.TryDequeue(out message))
                     {
+                        userMessage.Text = message;
 
-                        Activity userMessage = new Activity
-                        {
-                            From = new ChannelAccount(fromUser),
-                            Text = message,
-                            Type = ActivityTypes.Message
-                        };
 
                         await client.Conversations.PostActivityAsync(conversation.ConversationId, userMessage);
                     }

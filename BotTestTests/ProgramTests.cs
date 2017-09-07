@@ -15,11 +15,11 @@ namespace BotTest.Tests
     public class ProgramTests
     {
 
-            Thread oThread = new Thread(new ThreadStart(Program.initBotConversation));
+            static Thread oThread = new Thread(new ThreadStart(Program.initBotConversation));
 
 
-        [TestInitialize()]
-        public void initBotInteractionProgram()
+        [ClassInitialize()]
+        public static void initBotInteractionProgram(TestContext context)
         {
 
             oThread.Start();
@@ -55,9 +55,6 @@ namespace BotTest.Tests
                 {
                     //Burp out the text to the console.
                     Console.WriteLine("Recieved Text Contains: " + temp.Text);
-
-                    //Now send another message to the BOT and see if the BOT will echo the meesage
-                    Program.setBotMessage("Hello Bot, What is my GPA");
 
                     //Set a small logic flag
                     Init_Message_Interaction_Complete = true;
@@ -106,13 +103,47 @@ namespace BotTest.Tests
         public void requestGPATest()
         {
 
-            Console.WriteLine("TODO Tommorow");
+            //Create an activity to recieved the returned text
+            Microsoft.Bot.Connector.DirectLine.Activity temp = new Microsoft.Bot.Connector.DirectLine.Activity();
+
+            //establish a retry counter, to give the BOT time to respond, in the future this can correspond to a timeout requirement
+            int tryCounter = 0;
+
+
+            //Send the first message to the bot to establish the connection
+            Program.setBotMessage("Hello Bot, What is my GPA");
+
+
+            //retry for awhile initially
+            while (tryCounter < 50000001)
+            {
+
+                //Look to see of the BOT has responded
+                temp = Program.getBotMessage();
+
+                //The BOTInterction program sets text of ERROR if there are no responses from the BOT
+                if (!temp.Text.Contains("ERROR"))
+                {
+                    //Burp out the text to the console.
+                    Console.WriteLine("Recieved Text Contains: " + temp.Text);
+                    StringAssert.Contains(temp.Text, "GPA");
+                    break;
+
+                }
+
+                tryCounter++;
+
+            }
 
 
         }
 
-        [TestCleanup()]
-        public void stopBotInteractionProgram()
+
+
+
+
+        [ClassCleanup()]
+        public static void stopBotInteractionProgram()
         {
             oThread.Abort();
 
