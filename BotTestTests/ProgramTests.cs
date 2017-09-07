@@ -99,8 +99,7 @@ namespace BotTest.Tests
         }
 
         [TestMethod()]
-
-        public void requestGPATest()
+        public void requestCummulativeGPATest()
         {
 
             //Create an activity to recieved the returned text
@@ -111,7 +110,7 @@ namespace BotTest.Tests
 
 
             //Send the first message to the bot to establish the connection
-            Program.setBotMessage("Hello Bot, What is my GPA");
+            Program.setBotMessage("Hello Bot, What is my total GPA");
 
 
             //retry for awhile initially
@@ -126,7 +125,129 @@ namespace BotTest.Tests
                 {
                     //Burp out the text to the console.
                     Console.WriteLine("Recieved Text Contains: " + temp.Text);
-                    StringAssert.Contains(temp.Text, "GPA");
+                    StringAssert.Contains(temp.Text, "4.0");
+                    break;
+
+                }
+
+                tryCounter++;
+
+            }
+
+
+        }
+
+
+        [TestMethod()]
+        public void requestClassGPATest()
+        {
+
+            //Create an activity to recieved the returned text
+            Microsoft.Bot.Connector.DirectLine.Activity temp = new Microsoft.Bot.Connector.DirectLine.Activity();
+
+            //establish a retry counter, to give the BOT time to respond, in the future this can correspond to a timeout requirement
+            int tryCounter = 0;
+
+
+            //Send the first message to the bot to establish the connection
+            Program.setBotMessage("Hello Bot, What is my GPA for class XYZ");
+
+
+            //retry for awhile initially
+            while (tryCounter < 50000001)
+            {
+
+                //Look to see of the BOT has responded
+                temp = Program.getBotMessage();
+
+                //The BOTInterction program sets text of ERROR if there are no responses from the BOT
+                if (!temp.Text.Contains("ERROR"))
+                {
+                    //Burp out the text to the console.
+                    Console.WriteLine("Recieved Text Contains: " + temp.Text);
+                    StringAssert.Contains(temp.Text, "3.2");
+                    break;
+
+                }
+
+                tryCounter++;
+
+            }
+
+
+        }
+
+
+        [TestMethod()]
+        public void requestAnothersGPA()
+        {
+
+            //Create an activity to recieved the returned text
+            Microsoft.Bot.Connector.DirectLine.Activity temp = new Microsoft.Bot.Connector.DirectLine.Activity();
+
+            //establish a retry counter, to give the BOT time to respond, in the future this can correspond to a timeout requirement
+            int tryCounter = 0;
+
+
+            //Send the first message to the bot to establish the connection
+            Program.setBotMessage("Hello Bot, What is Henry's GPA");
+
+
+            //retry for awhile initially
+            while (tryCounter < 50000001)
+            {
+
+                //Look to see of the BOT has responded
+                temp = Program.getBotMessage();
+
+                //The BOTInterction program sets text of ERROR if there are no responses from the BOT
+                if (!temp.Text.Contains("ERROR"))
+                {
+                    //Burp out the text to the console.
+                    Console.WriteLine("Recieved Text Contains: " + temp.Text);
+                    StringAssert.Contains(temp.Text, "Error, you can't have another persons GPA");
+                    break;
+
+                }
+
+                tryCounter++;
+
+            }
+
+
+        }
+
+
+
+
+        [TestMethod()]
+        public void requestCredits()
+        {
+
+            //Create an activity to recieved the returned text
+            Microsoft.Bot.Connector.DirectLine.Activity temp = new Microsoft.Bot.Connector.DirectLine.Activity();
+
+            //establish a retry counter, to give the BOT time to respond, in the future this can correspond to a timeout requirement
+            int tryCounter = 0;
+
+
+            //Send the first message to the bot to establish the connection
+            Program.setBotMessage("Hello Bot, how many credits do I have");
+
+
+            //retry for awhile initially
+            while (tryCounter < 50000001)
+            {
+
+                //Look to see of the BOT has responded
+                temp = Program.getBotMessage();
+
+                //The BOTInterction program sets text of ERROR if there are no responses from the BOT
+                if (!temp.Text.Contains("ERROR"))
+                {
+                    //Burp out the text to the console.
+                    Console.WriteLine("Recieved Text Contains: " + temp.Text);
+                    StringAssert.Contains(temp.Text, "36");
                     break;
 
                 }
