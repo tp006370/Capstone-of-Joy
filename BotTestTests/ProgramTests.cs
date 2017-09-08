@@ -14,8 +14,7 @@ namespace BotTest.Tests
     [TestClass()]
     public class ProgramTests
     {
-
-            static Thread oThread = new Thread(new ThreadStart(Program.initBotConversation));
+        static Thread oThread = new Thread(new ThreadStart(Program.initBotConversation));
         String IntentGPA = "You have reached the myGPA intent. You said: ";
         String IntentInteract = "You have reached the Interact intent. You said: ";
         String IntentDates = "You have reached the DatesAndDeadlines intent. You said: ";
@@ -25,19 +24,23 @@ namespace BotTest.Tests
         [ClassInitialize()]
         public static void initBotInteractionProgram(TestContext context)
         {
-
             oThread.Start();
-
         }
 
+        [ClassCleanup()]
+        public static void stopBotInteractionProgram()
+        {
+            oThread.Abort();
+        }
 
+        #region Test cases
         [TestMethod()]
 
         //This test, tests the connection to the bot
         public void InitBotConnectionTest()
         {
             bool Init_Message_Interaction_Complete = false;
-    
+
             //Send the first message to the bot to establish the connection
             Program.setBotMessage("Hello");
 
@@ -51,9 +54,8 @@ namespace BotTest.Tests
             int tryCounter = 0;
 
             //retry for awhile initially
-            while(tryCounter < 50000001)
+            while (tryCounter < 50000001)
             {
-                              
                 //The BOTInterction program sets text of ERROR if there are no responses from the BOT
                 if (!temp.Text.Contains("ERROR"))
                 {
@@ -63,7 +65,6 @@ namespace BotTest.Tests
                     //Set a small logic flag
                     Init_Message_Interaction_Complete = true;
                     break;
-
                 }
 
                 //Look to see of the BOT has responded
@@ -71,9 +72,7 @@ namespace BotTest.Tests
 
                 //Increment the counter
                 tryCounter++;
-
             }
-
 
             //Ok got initial response, now reset the counter to look for the message echo
             tryCounter = 0;
@@ -95,49 +94,35 @@ namespace BotTest.Tests
                     }
 
                     tryCounter++;
-
                 }
-
             }
- 
         }
 
         [TestMethod()]
         public void requestCummulativeGPATest()
         {
-
             String input = "What is my GPA";
             String response = GetBotResponseTest(input);
             Assert.AreEqual(response, IntentGPA + input);
-
-
         }
 
 
         [TestMethod()]
         public void requestClassGPATest()
         {
-
             String input = "Hello Bot, What is my GPA for class XYZ";
             String response = GetBotResponseTest(input);
             StringAssert.Contains(response, "3.2");
-
-         }
+        }
 
 
         [TestMethod()]
         public void requestAnothersGPA()
         {
-
             String input = "Hello Bot, What is Henry's GPA";
             String response = GetBotResponseTest(input);
             StringAssert.Contains(response, "Error, you can't have another persons GPA");
-
-
         }
-
-
-
 
         [TestMethod()]
         public void requestCredits()
@@ -147,25 +132,21 @@ namespace BotTest.Tests
             StringAssert.Contains(response, "36");
         }
 
-
-
         [TestMethod()]
         public void requestCourseDate()
         {
-
             String input = "Hello Bot, how when does SWENG500 end";
             String response = GetBotResponseTest(input);
             StringAssert.Contains(response, "Never");
-
         }
 
-        public string GetBotResponseTest(String input){
+        public string GetBotResponseTest(String input)
+        {
             //Create an activity to recieved the returned text
             Microsoft.Bot.Connector.DirectLine.Activity temp = new Microsoft.Bot.Connector.DirectLine.Activity();
 
             //establish a retry counter, to give the BOT time to respond, in the future this can correspond to a timeout requirement
             int tryCounter = 0;
-
 
             //Send the first message to the bot to establish the connection
             Program.setBotMessage(input);
@@ -174,7 +155,6 @@ namespace BotTest.Tests
             //retry for awhile initially
             while (tryCounter < 50000001)
             {
-
                 //Look to see of the BOT has responded
                 temp = Program.getBotMessage();
 
@@ -183,24 +163,14 @@ namespace BotTest.Tests
                 {
                     //Burp out the text to the console.
                     Console.WriteLine("Recieved Text Contains: " + temp.Text);
-                   // StringAssert.Contains(temp.Text, "myGPA intent");
+                    // StringAssert.Contains(temp.Text, "myGPA intent");
                     break;
-
                 }
 
                 tryCounter++;
-
             }
             return temp.Text;
         }
-
-        [ClassCleanup()]
-        public static void stopBotInteractionProgram()
-        {
-            oThread.Abort();
-
-        }
-
-
+        #endregion
     }
 }
