@@ -125,7 +125,7 @@ namespace BotTest.Tests
                 {
                     //Burp out the text to the console.
                     Console.WriteLine("Recieved Text Contains: " + temp.Text);
-                    StringAssert.Contains(temp.Text, "4.0");
+                    StringAssert.Contains(temp.Text, "myGPA intent");
                     break;
 
                 }
@@ -260,6 +260,45 @@ namespace BotTest.Tests
         }
 
 
+
+        [TestMethod()]
+        public void requestCourseDate()
+        {
+
+            //Create an activity to recieved the returned text
+            Microsoft.Bot.Connector.DirectLine.Activity temp = new Microsoft.Bot.Connector.DirectLine.Activity();
+
+            //establish a retry counter, to give the BOT time to respond, in the future this can correspond to a timeout requirement
+            int tryCounter = 0;
+
+
+            //Send the first message to the bot to establish the connection
+            Program.setBotMessage("Hello Bot, how when does SWENG500 end");
+
+
+            //retry for awhile initially
+            while (tryCounter < 50000001)
+            {
+
+                //Look to see of the BOT has responded
+                temp = Program.getBotMessage();
+
+                //The BOTInterction program sets text of ERROR if there are no responses from the BOT
+                if (!temp.Text.Contains("ERROR"))
+                {
+                    //Burp out the text to the console.
+                    Console.WriteLine("Recieved Text Contains: " + temp.Text);
+                    StringAssert.Contains(temp.Text, "Never");
+                    break;
+
+                }
+
+                tryCounter++;
+
+            }
+
+
+        }
 
 
 
