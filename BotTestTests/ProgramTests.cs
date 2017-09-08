@@ -17,12 +17,20 @@ namespace BotTest.Tests
 
             static Thread oThread = new Thread(new ThreadStart(Program.initBotConversation));
 
+        //These are the responses from the Azure Bot Code
+        String IntentGPA = "You have reached the myGPA intent. You said: ";
+        String IntentInteract = "You have reached the Interact intent. You said: ";
+        String IntentDates = "You have reached the DatesAndDeadlines intent. You said: ";
+        String IntentSubjects = "You have reached the Subjects intent. You said: ";
+        String IntentProf = "You have reached the Professor intent. You said: ";
+        String IntentTeaches = "You have reached the teaches intent. You said: ";
 
         [ClassInitialize()]
         public static void initBotInteractionProgram(TestContext context)
         {
 
             oThread.Start();
+
 
         }
 
@@ -102,6 +110,43 @@ namespace BotTest.Tests
 
         public void requestGPATest()
         {
+            string intentQuestion = "Hello Bot, What is my GPA";
+            getBotResponseTest(intentQuestion, IntentGPA + intentQuestion);
+
+
+        }
+
+        [TestMethod()]
+
+        public void requestDatesTest()
+        {
+            String intentQuestion = "When can i register for SWENG500?";
+            getBotResponseTest(intentQuestion, IntentDates + intentQuestion);
+
+        }
+
+        [TestMethod()]
+
+        public void requestTeachesTest()
+        {
+            String intentQuestion = "who teaches SWENG500";
+            getBotResponseTest(intentQuestion, IntentTeaches + intentQuestion);
+
+        }
+
+        [TestMethod()]
+
+        public void requestSubjectsTest()
+        {
+            String intentQuestion = "what courses are available this fall?";
+            getBotResponseTest(intentQuestion, IntentSubjects + intentQuestion);
+
+        }
+
+        //Same code as the 2nd part of the InitBot connection test
+        //the input string and Assert String are now passed as variabales
+        public void getBotResponseTest(string input, String AssertText)
+        {
 
             //Create an activity to recieved the returned text
             Microsoft.Bot.Connector.DirectLine.Activity temp = new Microsoft.Bot.Connector.DirectLine.Activity();
@@ -111,7 +156,7 @@ namespace BotTest.Tests
 
 
             //Send the first message to the bot to establish the connection
-            Program.setBotMessage("Hello Bot, What is my GPA");
+            Program.setBotMessage(input);
 
 
             //retry for awhile initially
@@ -126,7 +171,8 @@ namespace BotTest.Tests
                 {
                     //Burp out the text to the console.
                     Console.WriteLine("Recieved Text Contains: " + temp.Text);
-                    StringAssert.Contains(temp.Text, "GPA");
+                    //Doing the Assert to compare the exact value
+                    Assert.AreEqual(temp.Text, AssertText);
                     break;
 
                 }
@@ -134,13 +180,7 @@ namespace BotTest.Tests
                 tryCounter++;
 
             }
-
-
         }
-
-
-
-
 
         [ClassCleanup()]
         public static void stopBotInteractionProgram()
