@@ -103,7 +103,7 @@ namespace BotTest.Tests
         {
             String input = "What is my GPA";
             String response = GetBotResponseTest(input);
-            Assert.AreEqual(response, "Your GPA is: 4");
+            Assert.AreEqual(response, "Your GPA is: 4.33");
         }
 
 
