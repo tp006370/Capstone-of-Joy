@@ -31,6 +31,22 @@ namespace BotTest.Tests
         [ClassCleanup()]
         public static void stopBotInteractionProgram()
         {
+            SqlConnection connection = new SqlConnection("Data Source = sweng500.database.windows.net,1433; Initial Catalog = SWENG500; Integrated Security = False; User ID = sweng500; Password = Capstone@123; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+
+            SqlCommand UpdateGPA_1 = new SqlCommand();
+            UpdateGPA_1 = connection.CreateCommand();
+            UpdateGPA_1.CommandText = @"UPDATE dbo.AcademicHistory SET Grade='A'" + " WHERE AcademicHistoryId=1";
+
+            SqlCommand UpdateGPA_2 = new SqlCommand();
+            UpdateGPA_2 = connection.CreateCommand();
+            UpdateGPA_2.CommandText = @"UPDATE dbo.AcademicHistory SET Grade='B-'" + " WHERE AcademicHistoryId=2";
+
+            connection.Open();
+            UpdateGPA_1.ExecuteNonQuery();
+            UpdateGPA_2.ExecuteNonQuery();
+
+            connection.Close();
+
             oThread.Abort();
         }
 
@@ -115,6 +131,80 @@ namespace BotTest.Tests
             StringAssert.Contains(response, "Your GPA is: 3.34");
         }
 
+        [TestMethod()]
+        public void TestGPACaluation4_0()
+        {
+
+            SqlConnection connection = new SqlConnection("Data Source = sweng500.database.windows.net,1433; Initial Catalog = SWENG500; Integrated Security = False; User ID = sweng500; Password = Capstone@123; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+
+            SqlCommand UpdateGPA = new SqlCommand();
+            UpdateGPA = connection.CreateCommand();
+            UpdateGPA.CommandText = @"UPDATE dbo.AcademicHistory SET Grade='A'" + " WHERE AcademicHistoryId=2";
+
+            connection.Open();
+            UpdateGPA.ExecuteNonQuery();
+            connection.Close();
+
+            Thread.Sleep(3000);
+
+            String input = "Bot what is my GPA";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "4");
+        }
+
+        [TestMethod()]
+        public void TestGPACaluation3_0()
+        {
+
+            SqlConnection connection = new SqlConnection("Data Source = sweng500.database.windows.net,1433; Initial Catalog = SWENG500; Integrated Security = False; User ID = sweng500; Password = Capstone@123; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+
+            SqlCommand UpdateGPA_1 = new SqlCommand();
+            UpdateGPA_1 = connection.CreateCommand();
+            UpdateGPA_1.CommandText = @"UPDATE dbo.AcademicHistory SET Grade='B'" + " WHERE AcademicHistoryId=1";
+
+            SqlCommand UpdateGPA_2 = new SqlCommand();
+            UpdateGPA_2 = connection.CreateCommand();
+            UpdateGPA_2.CommandText = @"UPDATE dbo.AcademicHistory SET Grade='B'" + " WHERE AcademicHistoryId=2";
+
+            connection.Open();
+            UpdateGPA_1.ExecuteNonQuery();
+            UpdateGPA_2.ExecuteNonQuery();
+
+            connection.Close();
+
+            Thread.Sleep(3000);
+
+            String input = "Bot what is my GPA";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "3");
+        }
+
+        [TestMethod()]
+        public void TestGPACaluation2_0()
+        {
+
+            SqlConnection connection = new SqlConnection("Data Source = sweng500.database.windows.net,1433; Initial Catalog = SWENG500; Integrated Security = False; User ID = sweng500; Password = Capstone@123; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+
+            SqlCommand UpdateGPA_1 = new SqlCommand();
+            UpdateGPA_1 = connection.CreateCommand();
+            UpdateGPA_1.CommandText = @"UPDATE dbo.AcademicHistory SET Grade='C'" + " WHERE AcademicHistoryId=1";
+
+            SqlCommand UpdateGPA_2 = new SqlCommand();
+            UpdateGPA_2 = connection.CreateCommand();
+            UpdateGPA_2.CommandText = @"UPDATE dbo.AcademicHistory SET Grade='C'" + " WHERE AcademicHistoryId=2";
+
+            connection.Open();
+            UpdateGPA_1.ExecuteNonQuery();
+            UpdateGPA_2.ExecuteNonQuery();
+
+            connection.Close();
+
+            Thread.Sleep(3000);
+
+            String input = "Bot what is my GPA";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "2");
+        }
 
         [TestMethod()]
         public void requestClassGPATest()
@@ -180,28 +270,6 @@ namespace BotTest.Tests
             StringAssert.Contains(response, "rstevens@psu.edu");
         }
 
- /*       [TestMethod()]
-        public void TestGPACaluation4_0()
-        {
-
-            ****** IN WORK *********
-            SqlConnection connection = new SqlConnection("Data Source = sweng500.database.windows.net,1433; Initial Catalog = SWENG500; Integrated Security = False; User ID = sweng500; Password = sweng500; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-  
-            SqlCommand UpdateGPA = new SqlCommand();
-            UpdateGPA = connection.CreateCommand();
-            UpdateGPA.CommandText = @"UPDATE dbo.AcademicHistory SET Grade=A" + " WHERE AcademicHistoryId=2";
-
-            connection.Open();
-            UpdateGPA.ExecuteNonQuery();
-            connection.Close();
-
-
-            String input = "Bot what is my GPA";
-            String response = GetBotResponseTest(input);
-            StringAssert.Contains(response, "4.0");
-        }
-
-    */
         public string GetBotResponseTest(String input)
         {
             //Create an activity to recieved the returned text
