@@ -11,8 +11,8 @@ namespace BotTest
    public class Program
     {
         //Test
-        private static string directLineSectret = "q7RPfg38hkE.cwA.pns.oxVS_JH5i-Kh9AWKooPsUtLh8q6fKxi-QHDZx2Tk6xU";
-        private static string botId = "TheVirtualAdvisor";
+        private static string directLineSectret = "vQTXyG-I4nU.cwA.Mq0.3nnFdaS4OFYaMlVGQW678nzLKklUFPnjHLwl_N3HOKE";
+        private static string botId = "VirtualAdvisorv2";
         private static string fromUser = "DirectLineClientUser";
 
         private static ConcurrentQueue<string> messagesToBot = new ConcurrentQueue<string>();
@@ -38,7 +38,7 @@ namespace BotTest
 
             new System.Threading.Thread(async () => await ReadBotMessagesAsync(client, conversation.ConversationId)).Start();
 
-            //        Console.Write("Command> ");
+ //                   Console.Write("Command> ");
 
             Activity userMessage = new Activity
             {
@@ -47,24 +47,28 @@ namespace BotTest
             };
 
             //This is a change
-            /*          Activity NewMessage1 = new Activity
+ /*                     Activity NewMessage1 = new Activity
                       {
                           From = new ChannelAccount(fromUser),
                           Text = "Hello",
                           Type = ActivityTypes.Message
-                      }; */
+                      }; 
 
-            //         await client.Conversations.PostActivityAsync(conversation.ConversationId, NewMessage1);
-
+                     await client.Conversations.PostActivityAsync(conversation.ConversationId, NewMessage1);
+                     */
 
             while (true)
             {
- /*               string input = Console.ReadLine().Trim();
+ //               string input = Console.ReadLine().Trim();
 
-                if (input.ToLower() == "exit")
+ /*               if (input.ToLower() == "exit")
                 {
                     break;
-                }*/
+                }
+                */
+
+    //            messagesToBot.Enqueue(input);
+
                 if (!messagesToBot.IsEmpty)
                 {
                    
@@ -96,7 +100,7 @@ namespace BotTest
                 foreach (Activity activity in activities)
                 {
                     messagesFromBot.Enqueue(activity);
-
+ //                   Console.WriteLine(activity.Text);
                 }
 
                 await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
