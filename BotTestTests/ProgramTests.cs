@@ -223,6 +223,38 @@ namespace BotTest.Tests
         }
 
         [TestMethod()]
+        public void requestSpringSemester2017GPA()
+        {
+            String input = "Hello Bot, What was my GPA for the Spring 2017 semester";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "2.0");
+        }
+
+        [TestMethod()]
+        public void requestSummerSemester2017GPA()
+        {
+            String input = "Hello Bot, What was my GPA for the Summer 2017 semester";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "2.0");
+        }
+
+        [TestMethod()]
+        public void requestFallSemester2017GPA()
+        {
+            String input = "Hello Bot, What was my GPA for the Fall 2017 semester";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "2.0");
+        }
+
+        [TestMethod()]
+        public void requestDepartmentStaff()
+        {
+            String input = "Hello Bot, what teachers are in the computer science department";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "Professor Ed, Professor Twain");
+        }
+
+        [TestMethod()]
         public void requestCredits()
         {
             String input = "Hello Bot, how many credits do I have";
