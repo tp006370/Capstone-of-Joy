@@ -16,7 +16,7 @@ namespace BotTest
         private static string fromUser = "DirectLineClientUser";
 
         private static ConcurrentQueue<string> messagesToBot = new ConcurrentQueue<string>();
-        private static ConcurrentQueue<Activity> messagesFromBot = new ConcurrentQueue<Activity>();
+        private static  ConcurrentQueue<Activity> messagesFromBot = new ConcurrentQueue<Activity>();
 
 
         static void Main(string[] args)
