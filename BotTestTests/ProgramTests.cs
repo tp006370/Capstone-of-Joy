@@ -199,6 +199,26 @@ namespace BotTest.Tests
         }
 
         [TestMethod()]
+        public void requestCourseTeacher()
+        {
+            String input = "Hello Bot, who teaches SWENG500";
+            String response = GetBotResponseTest(input);
+            if (response.Contains("sweng500"))
+            {
+                String inputResponse = "yes";
+                String response2 = GetBotResponseTest(inputResponse);
+                StringAssert.Contains(response2, "Professor Curry Fee");
+            }
+            else
+            {
+                Assert.Fail();
+            }
+
+
+
+        }
+
+        [TestMethod()]
         public void requestClassGPATest()
         {
             String input = "Hello Bot, What is my GPA for class XYZ";
@@ -263,14 +283,6 @@ namespace BotTest.Tests
         }
 
         [TestMethod()]
-        public void requestCourseTeacher()
-        {
-            String input = "Hello Bot, who teaches SWENG500";
-            String response = GetBotResponseTest(input);
-            StringAssert.Contains(response, "Robert Stephens");
-        }
-
-        [TestMethod()]
         public void requestProfeseorRating()
         {
             String input = "What is Professor Stephens rating";
@@ -281,7 +293,7 @@ namespace BotTest.Tests
         [TestMethod()]
         public void requestClassBasedOnSubject()
         {
-            String input = "Bit is there a class on Software System Design";
+            String input = "Bot is there a class on Software System Design";
             String response = GetBotResponseTest(input);
             StringAssert.Contains(response, "SWENG537");
         }
