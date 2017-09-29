@@ -426,7 +426,6 @@ C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\bin\Debug\ko\System.Spatial.
 C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\bin\Debug\ru\System.Spatial.resources.dll
 C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\bin\Debug\zh-Hans\System.Spatial.resources.dll
 C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\bin\Debug\zh-Hant\System.Spatial.resources.dll
-C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\obj\Debug\BotTest.csprojResolveAssemblyReference.cache
 C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\obj\Debug\BotTest.csproj.CoreCompileInputs.cache
 C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\obj\Debug\BotTest.exe
 C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\obj\Debug\BotTest.pdb
