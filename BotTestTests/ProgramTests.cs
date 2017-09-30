@@ -26,7 +26,7 @@ namespace BotTest.Tests
         [ClassInitialize()]
         public static void initBotInteractionProgram(TestContext context)
         {
-            oThread.Start();
+            oThread.Start();                  
             theConnection = new SqlConnection("Data Source = sweng500.database.windows.net,1433; Initial Catalog = VirtualAdvisor2; Integrated Security = False; User ID = sweng500; Password = Capstone@123; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
         }
 
@@ -121,7 +121,7 @@ namespace BotTest.Tests
         {
             String input = "What is my GPA";
             String response = GetBotResponseTest(input);
-            StringAssert.Contains(response, "Your GPA is: 2");
+            StringAssert.Contains(response, "Your GPA is: 4");
         }
 
         [TestMethod()]
@@ -129,7 +129,7 @@ namespace BotTest.Tests
         {
             String input = "What is my GPA";
             String response = GetBotResponseTest(input);
-            StringAssert.Contains(response, "Your GPA is: 2");
+            StringAssert.Contains(response, "Your GPA is: 4");
         }
 
         [TestMethod()]
@@ -147,7 +147,7 @@ namespace BotTest.Tests
 
             String input = "Bot what is my GPA";
             String response = GetBotResponseTest(input);
-            StringAssert.Contains(response, "Your GPA is: 2");
+            StringAssert.Contains(response, "Your GPA is: 3.92");
         }
 
         [TestMethod()]
@@ -171,7 +171,7 @@ namespace BotTest.Tests
 
             String input = "Bot what is my GPA";
             String response = GetBotResponseTest(input);
-            StringAssert.Contains(response, "Your GPA is: 2");
+            StringAssert.Contains(response, "Your GPA is: 3.25");
         }
 
         [TestMethod()]

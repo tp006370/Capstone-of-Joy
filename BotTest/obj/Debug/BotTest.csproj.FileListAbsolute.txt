@@ -431,3 +431,5 @@ C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\obj\Debug\BotTest.exe
 C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\obj\Debug\BotTest.pdb
 C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\bin\Debug\YamlDotNet.dll
 C:\Users\steve\Source\Repos\Capstone-of-Joy\BotTest\bin\Debug\YamlDotNet.xml
+C:\Users\tp006\Source\Repos\Capstone-of-Joy\BotTest\bin\Debug\YamlDotNet.dll
+C:\Users\tp006\Source\Repos\Capstone-of-Joy\BotTest\bin\Debug\YamlDotNet.xml
