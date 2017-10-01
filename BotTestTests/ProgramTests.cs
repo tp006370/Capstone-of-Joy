@@ -306,6 +306,22 @@ namespace BotTest.Tests
             StringAssert.Contains(response, "rstevens@psu.edu");
         }
 
+        [TestMethod()]
+        public void requestCourseSinglePrerequisitesTest()
+        {
+            String input = "What are the prerequisites for course ABS7110";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "ABS7100");
+        }
+
+        [TestMethod()]
+        public void requestCourseMultiplePrerequisitesTest()
+        {
+            String input = "What are the prerequisites for course SWENG500";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "ABS7120, ABS7220, ABS7230, ABS7600, ABS7601");
+        }
+
         public string GetBotResponseTest(String input)
         {
             //Create an activity to recieved the returned text
