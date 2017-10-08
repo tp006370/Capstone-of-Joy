@@ -15,7 +15,7 @@ namespace BotTest.Tests
     [TestClass()]
     public class ProgramTests
     {
-        static Thread oThread = new Thread(new ThreadStart(Program.initBotConversation));
+        static Thread oThread = new Thread(Program.initBotConversation);
         String IntentGPA = "You have reached the myGPA intent. You said: ";
         String IntentInteract = "You have reached the Interact intent. You said: ";
         String IntentDates = "You have reached the DatesAndDeadlines intent. You said: ";
@@ -51,9 +51,18 @@ namespace BotTest.Tests
             oThread.Abort();
         }
 
-        #region Test cases
-        [TestMethod()]
+        [TestInitialize]
+        public void Setup()
+        {
+           var welcomeText = GetBotResponseTest(null);
+            var menu = GetBotResponseTest(null);
+            var reminder = GetBotResponseTest(null);
+            var mgenu = reminder;
+        }
 
+        #region Test cases
+
+        [TestMethod()]
         //This test, tests the connection to the bot
         public void InitBotConnectionTest()
         {
@@ -201,7 +210,7 @@ namespace BotTest.Tests
         [TestMethod()]
         public void requestCourseTeacher()
         {
-            String input = "Hello Bot, who teaches SWENG500";
+            String input = "who teaches SWENG500";
             String response = GetBotResponseTest(input);
             if (response.Contains("sweng500"))
             {
@@ -213,9 +222,6 @@ namespace BotTest.Tests
             {
                 Assert.Fail();
             }
-
-
-
         }
 
         [TestMethod()]
@@ -334,7 +340,7 @@ namespace BotTest.Tests
             Program.setBotMessage(input);
             //"Hello Bot, What is my total GPA"
 
-            //retry for awhile initially
+            //retry for a while initially
             while (tryCounter < 50000001)
             {
                 //Look to see of the BOT has responded
