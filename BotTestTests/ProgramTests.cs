@@ -72,13 +72,17 @@ namespace BotTest.Tests
             int tryCounter = 0;
 
             //retry for awhile initially
-            while (tryCounter < 50000001)
+            while (tryCounter < 1000000001 )
             {
                 //The BOTInterction program sets text of ERROR if there are no responses from the BOT
-                if (!temp.Text.Contains("ERROR"))
-                {
+                //      if (!temp.Text.Contains("ERROR, ") ||
+                //          !temp.Text.Contains("Welcome to The Virtual Advisor") ||
+                //          !temp.Text.Contains("I know lots of things about your school and your records") ||
+                //          !temp.Text.Contains("Try typing questions about educational subjects, some are supplied below.."))
+                if (temp.Text.Contains("Hello"))
+                     {
                     //Burp out the text to the console.
-                    Console.WriteLine("Recieved Text Contains: " + temp.Text);
+                    Console.WriteLine("Recieved Text Contains: " + temp.Text + "Counter Value: " + tryCounter.ToString());
 
                     //Set a small logic flag
                     Init_Message_Interaction_Complete = true;
@@ -221,7 +225,7 @@ namespace BotTest.Tests
         [TestMethod()]
         public void requestClassGPATest()
         {
-            String input = "Hello Bot, What is my GPA for class XYZ";
+            String input = "Hello Bot, What is my GPA for class SWENG500";
             String response = GetBotResponseTest(input);
             StringAssert.Contains(response, "3.2");
         }

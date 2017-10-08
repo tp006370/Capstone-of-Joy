@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="BotTest.Tests.ProgramTests.InitBotConnectionTest" /><Add Test="BotTest.Tests.ProgramTests.requestCummulativeGPATest" /><Add Test="BotTest.Tests.ProgramTests.TestGPACaluation4_0" /><Add Test="BotTest.Tests.ProgramTests.TestGPACaluation3_0" /><Add Test="BotTest.Tests.ProgramTests.TestGPACaluation2_0" /></Playlist>
