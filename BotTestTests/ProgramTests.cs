@@ -223,6 +223,14 @@ namespace BotTest.Tests
         }
 
         [TestMethod()]
+        public void requestCredits()
+        {
+            String input = "Hello Bot, how many credits do I have";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "12");
+        }
+
+        [TestMethod()]
         public void requestClassGPATest()
         {
             String input = "Hello Bot, What is my GPA for class SWENG500";
@@ -268,14 +276,6 @@ namespace BotTest.Tests
             String input = "Hello Bot, what teachers are in the computer science department";
             String response = GetBotResponseTest(input);
             StringAssert.Contains(response, "Professor Ed, Professor Twain");
-        }
-
-        [TestMethod()]
-        public void requestCredits()
-        {
-            String input = "Hello Bot, how many credits do I have";
-            String response = GetBotResponseTest(input);
-            StringAssert.Contains(response, "36");
         }
 
         [TestMethod()]
