@@ -21,9 +21,7 @@ namespace BotTest
 
         static void Main(string[] args)
         {
-           
             StartBotConversation().Wait();
-
         }
 
 

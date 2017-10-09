@@ -28,6 +28,7 @@ namespace BotTest.Tests
         {
             oThread.Start();                  
             theConnection = new SqlConnection("Data Source = sweng500.database.windows.net,1433; Initial Catalog = VirtualAdvisor2; Integrated Security = False; User ID = sweng500; Password = Capstone@123; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            InitBotConnection();
         }
 
         [ClassCleanup()]
@@ -52,10 +53,8 @@ namespace BotTest.Tests
         }
 
         #region Test cases
-        [TestMethod()]
 
-        //This test, tests the connection to the bot
-        public void InitBotConnectionTest()
+        public static void InitBotConnection()
         {
             bool Init_Message_Interaction_Complete = false;
 
@@ -72,7 +71,7 @@ namespace BotTest.Tests
             int tryCounter = 0;
 
             //retry for awhile initially
-            while (tryCounter < 1000000001 )
+            while (tryCounter < 1000000001)
             {
                 //The BOTInterction program sets text of ERROR if there are no responses from the BOT
                 //      if (!temp.Text.Contains("ERROR, ") ||
@@ -80,7 +79,7 @@ namespace BotTest.Tests
                 //          !temp.Text.Contains("I know lots of things about your school and your records") ||
                 //          !temp.Text.Contains("Try typing questions about educational subjects, some are supplied below.."))
                 if (temp.Text.Contains("Hello"))
-                     {
+                {
                     //Burp out the text to the console.
                     Console.WriteLine("Recieved Text Contains: " + temp.Text + "Counter Value: " + tryCounter.ToString());
 
@@ -217,9 +216,6 @@ namespace BotTest.Tests
             {
                 Assert.Fail();
             }
-
-
-
         }
 
         [TestMethod()]
@@ -326,7 +322,15 @@ namespace BotTest.Tests
             StringAssert.Contains(response, "ABS7120, ABS7220, ABS7230, ABS7600, ABS7601");
         }
 
-        public string GetBotResponseTest(String input)
+        [TestMethod]
+        public void ProfessorTeachesTest()
+        {
+            String input = "What does Professor Curry teach";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "There are 1 professor(s) who match this name.\n\n Curry Fee: CEG2170L, SWENG500");
+        }
+
+        public static string GetBotResponseTest(String input)
         {
             //Create an activity to recieved the returned text
             Microsoft.Bot.Connector.DirectLine.Activity temp = new Microsoft.Bot.Connector.DirectLine.Activity();
