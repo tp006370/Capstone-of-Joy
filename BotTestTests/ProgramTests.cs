@@ -219,7 +219,7 @@ namespace BotTest.Tests
         }
 
         [TestMethod()]
-        public void requestCredits()
+        public void requestTotalCredits()
         {
             String input = "Hello Bot, how many credits do I have";
             String response = GetBotResponseTest(input);
@@ -264,6 +264,30 @@ namespace BotTest.Tests
             String input = "Hello Bot, What was my GPA for the Fall 2017 semester";
             String response = GetBotResponseTest(input);
             StringAssert.Contains(response, "2.0");
+        }
+
+        [TestMethod()]
+        public void requestSpringSemester2017Credits()
+        {
+            String input = "Hello Bot, How many credits for spring 2017";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "3");
+        }
+
+        [TestMethod()]
+        public void requestSummerSemester2017Credits()
+        {
+            String input = "Hello Bot, How many credits for summer 2017";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "3");
+        }
+
+        [TestMethod()]
+        public void requestFallSemester2017Credits()
+        {
+            String input = "Hello Bot, How many credits for fall 2017";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "6");
         }
 
         [TestMethod()]
