@@ -291,6 +291,39 @@ namespace BotTest.Tests
         }
 
         [TestMethod()]
+        public void requestHelp()
+        {
+            String input = "Help";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "Hi, let me help you navigate the Virtual Advisor");
+        }
+
+        [TestMethod()]
+        public void requestGPAHelp()
+        {
+            String input = "Help";
+            String response = GetBotResponseTest(input);
+            if (response.Contains("Hi, let me help you navigate the Virtual Adviso"))
+            {
+                String inputResponse = "Help GPA";
+                String response2 = GetBotResponseTest(inputResponse);
+                StringAssert.Contains(response2, "The Virtual Advisor allows you to inquire about your grades");
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
+        public void ProfessorTeachesTest()
+        {
+            String input = "What does Professor Curry teach";
+            String response = GetBotResponseTest(input);
+            StringAssert.Contains(response, "Curry Fee: CEG2170L, SWENG500");
+        }
+
+        [TestMethod()]
         public void requestDepartmentStaff()
         {
             String input = "Hello Bot, what teachers are in the computer science department";
@@ -346,13 +379,7 @@ namespace BotTest.Tests
             StringAssert.Contains(response, "ABS7120, ABS7220, ABS7230, ABS7600, ABS7601");
         }
 
-        [TestMethod]
-        public void ProfessorTeachesTest()
-        {
-            String input = "What does Professor Curry teach";
-            String response = GetBotResponseTest(input);
-            StringAssert.Contains(response, "There are 1 professor(s) who match this name.\n\n Curry Fee: CEG2170L, SWENG500");
-        }
+
 
         public static string GetBotResponseTest(String input)
         {
