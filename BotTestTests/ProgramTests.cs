@@ -263,7 +263,7 @@ namespace BotTest.Tests
         {
             String input = "Hello Bot, What was my GPA for the Fall 2017 semester";
             String response = GetBotResponseTest(input);
-            StringAssert.Contains(response, "2.0");
+            StringAssert.Contains(response, "3.0");
         }
 
         [TestMethod()]
